@@ -38,7 +38,7 @@ public class Interfaz extends Application {
   
         /**
     	 * Esta es la estructura de la interfaz con respecto a la parte izquierda de la ventana 
-    	 * Se utiliza una VBox y cinco Botones
+    	 * Se utiliza una VBox y cinco Botones 
     	 */
         VBox Caja_izquierda = new VBox(); 
         Caja_izquierda.setSpacing(20);
