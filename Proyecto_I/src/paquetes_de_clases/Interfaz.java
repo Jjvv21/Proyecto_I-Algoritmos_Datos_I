@@ -1,13 +1,20 @@
 package paquetes_de_clases;
 
+import java.awt.Desktop;
+import java.io.Console;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
+
+import com.sun.glass.ui.Window.Level;
+import com.sun.javafx.logging.Logger;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -16,19 +23,17 @@ import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class Interfaz extends Application {
-
-  //  public void init() throws Exception {
-     //   super.init();
-      //  System.out.println("Realice las inicializaciones necesarias aquí.");
-    //}
 	Button ayuda; 
-
+	Button guardar;
+	Button abrir_archivo; 
+	private Desktop desktop = Desktop.getDesktop();
+	
     public void start(Stage primaryStage) throws Exception {
     	//COLUMNA VERTICAL 
     	
@@ -38,10 +43,10 @@ public class Interfaz extends Application {
         
           
         /**
-    	 * Esta es la estructura de la interfaz con respecto a la parte izquierda de la ventana 
+    	 * Esta es la estructura de la	interfaz con respecto a la parte izquierda de la ventana 
     	 * Se utiliza una VBox y cinco Botones 
     	 */
-      
+        
         VBox Caja_izquierda = new VBox(); 
         Caja_izquierda.setSpacing(20);
         Caja_izquierda.setTranslateY(200);
@@ -60,37 +65,37 @@ public class Interfaz extends Application {
     	 * Esta es la estructura de la interfaz con respecto a la parte Derecha de la ventana 
     	 */
         VBox Caja_Derecha = new VBox(); 
-        FileInputStream AND_img = new FileInputStream("C:\\Users\\Julio\\git\\Proyecto_v2\\Proyecto_I\\Imagenes\\AND2.png"); 
+        FileInputStream AND_img = new FileInputStream("C:\\Users\\Julio\\git\\Proyecto_v2\\Imagenes\\AND.png"); 
         Image AND_image = new Image(AND_img); 
         ImageView A = new ImageView(AND_image); 
         Label AND = new Label("", A); 
         
-        FileInputStream NAND_img = new FileInputStream("C:\\Users\\Julio\\git\\Proyecto_v2\\Proyecto_I\\Imagenes\\NAND.png"); 
+        FileInputStream NAND_img = new FileInputStream("C:\\Users\\Julio\\git\\Proyecto_v2\\Imagenes\\NAND.png"); 
         Image NAND_image = new Image(NAND_img); 
         ImageView B = new ImageView(NAND_image); 
         Label NAND = new Label("", B); 
         
-        FileInputStream NOR_img = new FileInputStream("C:\\Users\\Julio\\git\\Proyecto_v2\\Proyecto_I\\Imagenes\\NOR.png"); 
+        FileInputStream NOR_img = new FileInputStream("C:\\Users\\Julio\\git\\Proyecto_v2\\Imagenes\\NOR.png"); 
         Image NOR_image = new Image(NOR_img); 
         ImageView C = new ImageView(NOR_image); 
         Label NOR = new Label("", C); 
         
-        FileInputStream XNOR_img = new FileInputStream("C:\\Users\\Julio\\git\\Proyecto_v2\\Proyecto_I\\Imagenes\\XNOR.png"); 
+        FileInputStream XNOR_img = new FileInputStream("C:\\Users\\Julio\\git\\Proyecto_v2\\Imagenes\\XNOR.png"); 
         Image XNOR_image = new Image(XNOR_img); 
         ImageView D = new ImageView(XNOR_image); 
         Label XNOR = new Label("", D); 
         
-        FileInputStream NOT_img = new FileInputStream("C:\\Users\\Julio\\git\\Proyecto_v2\\Proyecto_I\\Imagenes\\NOT.png"); 
+        FileInputStream NOT_img = new FileInputStream("C:\\Users\\Julio\\git\\Proyecto_v2\\Imagenes\\NOT.png"); 
         Image NOT_image = new Image(NOT_img); 
         ImageView E = new ImageView(NOT_image); 
         Label NOT = new Label("", E); 
         
-        FileInputStream XOR_img = new FileInputStream("C:\\Users\\Julio\\git\\Proyecto_v2\\Proyecto_I\\Imagenes\\XOR.png"); 
+        FileInputStream XOR_img = new FileInputStream("C:\\Users\\Julio\\git\\Proyecto_v2\\Imagenes\\XOR.png"); 
         Image XOR_image = new Image(XOR_img); 
         ImageView F = new ImageView(XOR_image); 
         Label XOR = new Label("", F); 
         
-        FileInputStream OR_img = new FileInputStream("C:\\Users\\Julio\\git\\Proyecto_v2\\Proyecto_I\\Imagenes\\OR.png"); 
+        FileInputStream OR_img = new FileInputStream("C:\\Users\\Julio\\git\\Proyecto_v2\\Imagenes\\OR.png"); 
         Image OR_image = new Image(OR_img); 
         ImageView G = new ImageView(OR_image); 
         Label OR = new Label("", G); 
@@ -100,18 +105,21 @@ public class Interfaz extends Application {
     	 * Se utiliza una HBox y cinco Botones
     	 */
 
-        Button abrir_archivo = new Button("Abrir");
+        abrir_archivo = new Button("Abrir");
         abrir_archivo.setStyle("-fx-padding: 10 10 10 10;");
-        Button guardar = new Button("Guardar");
+        guardar = new Button("Guardar");
         guardar.setStyle("-fx-padding: 10 10 10 10;");
         Button agregar_circuito = new Button("Añadir Circuito");
         agregar_circuito.setStyle("-fx-padding: 10 10 10 10;");
         Button herramientas = new Button("Herramientas");
         herramientas.setStyle("-fx-padding: 10 10 10 10;");
         ayuda = new Button("Ayuda");
-        //ayuda.setOnAction(e-> ButtonClicked(e));
         ayuda.setStyle("-fx-padding: 10 10 10 10;");
         ayuda.setTranslateX(1340);
+        
+
+        
+        
         /**
     	 * ComboBox integrada en la caja de herramientas superior(SELECCION DEL NIVEL DE DIFICULTAD)
     	 */
@@ -171,14 +179,51 @@ public class Interfaz extends Application {
         primaryStage.setTitle("Compuertas Logicas By JJVV");
         primaryStage.setScene(scene);
         primaryStage.show();
-    }
+        
+        
+        /**
+    	 * Eventos relacionados a los botones que se encuentran en la parte superior de la ventana.
+    	 * (Guardar)(Abrir) 
+    	 */
+        guardar.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override
+		    public void handle(final ActionEvent e) {
+		    	FileChooser fileChooser = new FileChooser();
+		        File file = fileChooser.showOpenDialog(primaryStage);
+		        if (file != null) {
+		            openFile(file);
+		        }
+		    }
+		});
+        
+        abrir_archivo.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override
+		    public void handle(final ActionEvent a) {
+		    	FileChooser fileChooser = new FileChooser();
+		        File file = fileChooser.showOpenDialog(primaryStage);
+		        if (file != null) {
+		            openFile(file);
+		        }
+		    }
+		});
 
-   
-	//public void stop() throws Exception {
-       // super.stop();
-        //System.out.println("Destruye los recursos. Realice limpieza.");
-    //}
-    public static void main(String[] args) {
-        launch(args);
+    	
     }
+    public static void main(String[] args) {
+        Application.launch(args);
+    }
+ 
+    private void openFile(File file) {
+        try {
+            desktop.open(file);
+        } catch (IOException ex) {
+        	System.out.println("Error 01");
+            
+        }
+    }
+   
+    
+
+
+
 }
