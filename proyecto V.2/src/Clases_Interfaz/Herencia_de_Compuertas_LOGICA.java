@@ -5,7 +5,21 @@ import Clases_Interfaz.Herencia_de_Compuertas_LOGICA.Gates;
 public class Herencia_de_Compuertas_LOGICA {
 	
 	Herencia_de_Compuertas_LOGICA compuerta; 
-	
+	private String EntradaUno = "";
+	public Herencia_de_Compuertas_LOGICA() {
+	}
+	public String getInput1() {
+		return EntradaUno;
+	}
+	public void setInput1(String Entrada) {
+		EntradaUno = Entrada;
+	}
+	public Herencia_de_Compuertas_LOGICA(String EntradaUno) {
+		this.EntradaUno = EntradaUno;
+	}
+	/**
+	 * Interface para las compuertas que hereda los metodos Getters and Setters de Inputs y Outputs
+	 */
 	interface Gates extends Compuertas_LOGICA{
 		
 	}
@@ -16,6 +30,7 @@ public class Herencia_de_Compuertas_LOGICA {
 		
 		public void setEntradaUno(int EntradaUno) {
 			this.EntradaUno = EntradaUno; 
+	
 		}
 		@Override
 		public int getEntradaUno() {
@@ -306,39 +321,39 @@ public class Herencia_de_Compuertas_LOGICA {
 			System.out.println("salida para el OR = "+compuertaOR.getSalida());
 			
 		}else if(tipo_Compuertas == Gate_type.NOR) {
-			CompuertaAND compuertaAND = new CompuertaAND();
-			compuertaAND.setEntradaUno(Entrada_Uno);
-			compuertaAND.setEntradaDos(Entrada_Dos);
-			compuertaAND.setSalida(compuertaAND.getEntradaUno(), compuertaAND.getEntradaDos());
-			System.out.println("salida para el NOR = "+compuertaAND.getSalida());
+			CompuertaNOR compuertaNOR = new CompuertaNOR();
+			compuertaNOR.setEntradaUno(Entrada_Uno);
+			compuertaNOR.setEntradaDos(Entrada_Dos);
+			compuertaNOR.setSalida(compuertaNOR.getEntradaUno(), compuertaNOR.getEntradaDos());
+			System.out.println("salida para el NOR = "+compuertaNOR.getSalida());
 			
 		}else if(tipo_Compuertas == Gate_type.XNOR) {
-			CompuertaAND compuertaAND = new CompuertaAND();
-			compuertaAND.setEntradaUno(Entrada_Uno);
-			compuertaAND.setEntradaDos(Entrada_Dos);
-			compuertaAND.setSalida(compuertaAND.getEntradaUno(), compuertaAND.getEntradaDos());
-			System.out.println("salida para el XNOR = "+compuertaAND.getSalida());
+			CompuertaXNOR compuertaXNOR = new CompuertaXNOR();
+			compuertaXNOR.setEntradaUno(Entrada_Uno);
+			compuertaXNOR.setEntradaDos(Entrada_Dos);
+			compuertaXNOR.setSalida(compuertaXNOR.getEntradaUno(), compuertaXNOR.getEntradaDos());
+			System.out.println("salida para el XNOR = "+compuertaXNOR.getSalida());
 			
 		}else if(tipo_Compuertas == Gate_type.XOR) {
-			CompuertaAND compuertaAND = new CompuertaAND();
-			compuertaAND.setEntradaUno(Entrada_Uno);
-			compuertaAND.setEntradaDos(Entrada_Dos);
-			compuertaAND.setSalida(compuertaAND.getEntradaUno(), compuertaAND.getEntradaDos());
-			System.out.println("salida para el XOR = "+compuertaAND.getSalida());
+			CompuertaXOR compuertaXOR = new CompuertaXOR();
+			compuertaXOR.setEntradaUno(Entrada_Uno);
+			compuertaXOR.setEntradaDos(Entrada_Dos);
+			compuertaXOR.setSalida(compuertaXOR.getEntradaUno(), compuertaXOR.getEntradaDos());
+			System.out.println("salida para el XOR = "+compuertaXOR.getSalida());
 			
 		}else if(tipo_Compuertas == Gate_type.NOT) {
-			CompuertaAND compuertaAND = new CompuertaAND();
-			compuertaAND.setEntradaUno(Entrada_Uno);
-			compuertaAND.setEntradaDos(Entrada_Dos);
-			compuertaAND.setSalida(compuertaAND.getEntradaUno(), compuertaAND.getEntradaDos());
-			System.out.println("salida para el NOT = "+compuertaAND.getSalida());
+			CompuertaNOT compuertaNOT = new CompuertaNOT();
+			compuertaNOT.setEntradaUno(Entrada_Uno);
+			compuertaNOT.setEntradaDos(Entrada_Dos);
+			compuertaNOT.setSalida(compuertaNOT.getEntradaUno(), compuertaNOT.getEntradaDos());
+			System.out.println("salida para el NOT = "+compuertaNOT.getSalida());
 			
 		}else if(tipo_Compuertas == Gate_type.NAND) {
-			CompuertaAND compuertaAND = new CompuertaAND();
-			compuertaAND.setEntradaUno(Entrada_Uno);
-			compuertaAND.setEntradaDos(Entrada_Dos);
-			compuertaAND.setSalida(compuertaAND.getEntradaUno(), compuertaAND.getEntradaDos());
-			System.out.println("salida para el NAND = "+compuertaAND.getSalida());
+			CompuertaNAND compuertaNAND = new CompuertaNAND();
+			compuertaNAND.setEntradaUno(Entrada_Uno);
+			compuertaNAND.setEntradaDos(Entrada_Dos);
+			compuertaNAND.setSalida(compuertaNAND.getEntradaUno(), compuertaNAND.getEntradaDos());
+			System.out.println("salida para el NAND = "+compuertaNAND.getSalida());
 			
 		}
 		this.compuerta = compuerta; 

@@ -62,7 +62,7 @@ public class Botones {
 			
 		}else if (type == Button_Enum.Simular) {
 			new_Button.setText("Simular");
-			
+			 
 
 		}else if (type == Button_Enum.Nuevo) {
 			new_Button.setText("Nuevo");
@@ -96,7 +96,7 @@ public class Botones {
 			new_Button.setOnAction(new EventHandler<ActionEvent>() {
 				   @Override public void handle(ActionEvent e) {
 				        try {
-				            Desktop.getDesktop().browse(new URI("https://www.electronics-tutorials.ws/logic/logic_10.html"));
+				            Desktop.getDesktop().browse(new URI("https://github.com/Jjvv21/Proyecto_I-Algoritmos_Datos_I/wiki/Help"));
 				        } catch (IOException leer) {
 				        	leer.printStackTrace();
 				        } catch (URISyntaxException leer) {
@@ -234,7 +234,7 @@ public class Botones {
 		            }});	
 		}else if(Type == Button_Enum.NOT) {
 			IMAGES ImageNOT = new IMAGES();
-			ImageNOT.setImageView(ImageNOT,Img_Enum.or);
+			ImageNOT.setImageView(ImageNOT,Img_Enum.not);
 	        buttonC.setGraphic(ImageNOT.getImageView());
 	        buttonC.setOnDragDetected(new EventHandler<MouseEvent>() {
 				 @Override
@@ -290,8 +290,7 @@ public class Botones {
 	public MenuButton getMenuB(){
 		return menuB; 
 	}
-	public void SetMenuB(Botones menuB,MenuB_Enum Type,Botones MenuItem, Botones MenuItem2,
-			MenuItemType Type2,MenuItemType Type3,String Nombre) {
+	public void SetMenuB(Botones menuB,MenuB_Enum Type,Botones MenuItem, Botones MenuItem2,MenuItemType Type2,MenuItemType Type3,String Nombre) {
 		
 		MenuButton newMenuB = new MenuButton();
 		if(Type==MenuB_Enum.Entradas) {
@@ -301,51 +300,54 @@ public class Botones {
 			newMenuB.setText("PorDefecto");
 			
 		}
-		MenuItem newMenuI = new MenuItem(); 
+		MenuItem newMenuI = new MenuItem();
 		if(Type2 == MenuItemType.Entrada_Uno) {
-			newMenuI.setText("Inserte Entrada"+EntradaUno);
+			
+			newMenuI.setText("Ingrese Entrada Uno = "+EntradaUno);
 			newMenuI.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
 				public void handle(ActionEvent event) {
-					if(EntradaUno == 0 ) {
-						EntradaUno = 1; 
-						newMenuI.setText("Inserte EntradaUno"+EntradaUno);
-						Eventos_De_Botones.SetEntradas(EntradaUno,EntradaDos,Nombre);
+					if(EntradaUno == 0) {
+						EntradaUno = 1;
+						newMenuI.setText("Inserte Entrada Uno = "+EntradaUno);
+						Eventos_De_Botones.SetEntradas(EntradaUno, EntradaDos, Nombre);
 					}else {
 						EntradaUno = 0;
-						newMenuI.setText("Insertar Entrada Uno = "+EntradaUno);
-						Eventos_De_Botones.SetEntradas(EntradaUno, EntradaDos,Nombre);
+						newMenuI.setText("Inserte Entrada Uno = "+EntradaUno);
+						Eventos_De_Botones.SetEntradas(EntradaUno, EntradaDos, Nombre);
 					}
-				} 
+				}
 			});
+			
 		}else {
 			newMenuI.setText("Default");
 		}
-		MenuItem newMenuI2 = new MenuItem();
+		MenuItem NewMenuI2 = new MenuItem();
 		if(Type3 == MenuItemType.Entrada_Dos) {
-			newMenuI2.setText("setInput2 = "+EntradaDos);
-			newMenuI2.setOnAction(new EventHandler<ActionEvent>() {
+			NewMenuI2.setText("Inserte Entrada Dos = "+EntradaDos);
+			NewMenuI2.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event) {
 					if(EntradaDos == 0) {
 						EntradaDos = 1;
-						newMenuI2.setText("setInput2 = "+EntradaDos);
+						NewMenuI2.setText("Inserte Entrada Dos = "+EntradaDos);
 						Eventos_De_Botones.SetEntradas(EntradaUno, EntradaDos, Nombre);
 					}else {
 						EntradaDos = 0;
-						newMenuI2.setText("Inserte Entrada Dos = "+EntradaDos);
+						NewMenuI2.setText("Inserte Entrada Dos = "+EntradaDos);
 						Eventos_De_Botones.SetEntradas(EntradaUno, EntradaDos, Nombre);
 					}
 				}
 			});
 		}else {
-			newMenuI2.setText("Default");
+			NewMenuI2.setText("Default");
 		}
-		if (Nombre == "NOT") {
+		if(Nombre == "NOT" ) {
 			newMenuB.getItems().addAll(newMenuI);
 		}else {
-			newMenuB.getItems().addAll(newMenuI,newMenuI2);
+			newMenuB.getItems().addAll(newMenuI,NewMenuI2);
 		}
-		this.menuB = newMenuB; 
+		this.menuB = newMenuB;
 	}
 	
 }

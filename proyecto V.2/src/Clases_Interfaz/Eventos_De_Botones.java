@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 
 import Clases_Interfaz.Herencia_de_Compuertas_LOGICA.Gate_type;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -16,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ToolBar;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
@@ -56,16 +58,16 @@ public class Eventos_De_Botones {
     
     
     
-	public static final void OnDragDetected(MouseEvent e, ImageView ImageView, String Name){
+	public static final void OnDragDetected(MouseEvent e, ImageView ImageView, String Nombre){
         Dragboard db= ImageView.startDragAndDrop(TransferMode.ANY);
         ClipboardContent content = new ClipboardContent();
         Main.Center.setOnDragDropped(new EventHandler<DragEvent>() {
             @Override
             public void handle(DragEvent event) {
-                Eventos_De_Botones.OnDragDropped(event, ImageView);
+                Eventos_De_Botones.OnDragDropped(event, ImageView,Nombre);
             }
         });
-        content.putString(Name);
+        content.putString(Nombre);
         db.setContent(content);
         e.consume();
         
@@ -133,7 +135,7 @@ public class Eventos_De_Botones {
 	    }
 	};
 
-	public static void OnDragDropped(DragEvent e,ImageView ImageView){
+	public static void OnDragDropped(DragEvent e,ImageView ImageView,String Nombre){
 	       rectangle=new Rectangle(140,50);
 	       rectangle.setFill(new ImagePattern(ImageView.getImage()));
 	       rectangle.setCursor(Cursor.MOVE);
@@ -141,7 +143,13 @@ public class Eventos_De_Botones {
 	       rectangle.setY(e.getSceneY());
 	       rectangle.setOnMousePressed(RectangleOnMousePressedEventHandler);
 	       rectangle.setOnMouseDragged(RectangleOnMouseDraggedEventHandler);
-
+	       if(Nombre == "NOT"){
+	    	   Botones.TotalEntradas++;
+	       }else {
+	    	   Botones.TotalEntradas++;
+	    	   Botones.TotalEntradas++;
+	       }
+	       AddEntradas(BarraDeHerramientas, Nombre); 
 	       Main.root.getChildren().add(rectangle);
 	    }
 	
@@ -168,22 +176,31 @@ public class Eventos_De_Botones {
 		Botones SetEntradaUno = new Botones();
 		Botones SetEntradaDos = new Botones();
 		EntradaUno.SetMenuB(EntradaUno, MenuB_Enum.Entradas, SetEntradaUno , SetEntradaDos, MenuItemType.Entrada_Uno, MenuItemType.Entrada_Dos , Name);
+		
 		ToolBar.getItems().add(EntradaUno.getMenuB());
+		ToolBar.setStyle("-fx-background-color: #5C5858");
 	}
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static void AgregarColumnas(TableView TableView) {
 		TableView.getItems().clear();
-		TableColumn inputsColumn = new TableColumn("Inputs");
-		inputsColumn.setMinWidth(Tabla.getMaxWidth()/2);
-        TableColumn<ObservableList<String>, String> outputColumn = new TableColumn("Outputs");
-        outputColumn.setMinWidth(Tabla.getMaxWidth()/2);
-        for (int i = 0; i < Botones.TotalEntradas; i++) {
-            final int index = i;
-            String name = "int" + i;
-            TableColumn<ObservableList<String>, String> newColumn = new TableColumn<>(name);
-            inputsColumn.getColumns().add(newColumn);
+		TableColumn InputsGroupColumn = new TableColumn("Entradas");
+		InputsGroupColumn.setMinWidth(TableView.getMaxWidth()/2);
+		TableColumn OutputsGroupColumn = new TableColumn("Salidas");
+		InputsGroupColumn.setMinWidth(TableView.getMaxWidth()/2);
+		for (int i = 0; i < Botones.TotalEntradas; i++) {
+            String name = "Entrada " + i;
+            TableColumn<ObservableList<String>, String> InputColumn = new TableColumn<>(name);
+            InputColumn.setCellValueFactory(new PropertyValueFactory<>("Entrada uno"));
+            ObservableList<Object> Datos = FXCollections.observableArrayList();
+            InputsGroupColumn.getColumns().add(InputColumn);
         }
-        Tabla.getColumns().addAll(inputsColumn, outputColumn);
+		for(double Counter = Math.pow(2, Botones.TotalEntradas); Counter>0; Counter--) {
+        	TableView.getItems().add(new Herencia_de_Compuertas_LOGICA("1"));
+        	System.out.println("1 añadido");
+        }
+        
+
+		TableView.getColumns().addAll(InputsGroupColumn, OutputsGroupColumn);
 	}
 	
 
