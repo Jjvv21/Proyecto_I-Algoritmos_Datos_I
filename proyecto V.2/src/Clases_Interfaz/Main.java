@@ -15,6 +15,7 @@ import javafx.scene.control.ToolBar;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -29,7 +30,7 @@ public class Main extends Application{
 	public static final Pane Center = new Pane(root); 
 	private ToolBar right_ToolBar = new ToolBar();
 	private ToolBar Top_ToolBar = new ToolBar();
-	private VBox rightBox = new VBox();
+	private HBox rightBox = new HBox();
 	private static Button buttonRun;
 	/**
 	 * Creacion De La Ventana Principal 
@@ -101,7 +102,7 @@ public class Main extends Application{
 		Back.setButton(Back, Button_Enum.Retroceder);
 		
 		
-		/**
+		/** 
 		 * COMPUERTAS
 		 */
 		AND.setButton(AND, Button_Enum.AND,imgAND.getImageView());
@@ -127,23 +128,27 @@ public class Main extends Application{
 			
 		/**
 		 * RIGHT TOOLBAR 
+		 * CAMBIOS EN LAS CARACTERISTICAS DE LOS BOTONES
+		 * 
 		 */
+		simular.getButton().setTranslateX(80);
 		
 		Top_ToolBar.getItems().addAll(Guardar.getButton(),Abrir.getButton(),Nuevo.getButton(),Back.getButton(),Tools.getButton(),Help.getButton(),borrar.getButton());
 		rightBox.getChildren().addAll(AND.getButton(),OR.getButton(),XOR.getButton(),NAND.getButton(),NOR.getButton(),XNOR.getButton(),NOT.getButton(),simular.getButton());
-		rightBox.setSpacing(60);
+		rightBox.setSpacing(90);
 		right_ToolBar.getItems().addAll(rightBox);
-		right_ToolBar.setOrientation(Orientation.VERTICAL);
+		right_ToolBar.setStyle("-fx-background-color:  #252423 ");
+
 		
 		
 		
 		
 		
 		
-		Structure.setRight(right_ToolBar);
+		Structure.setBottom(right_ToolBar);
 		Structure.setTop(Top_ToolBar);
 		Structure.setCenter(Center);
-		Center.setStyle("-fx-background-color: white;");
+
 
 		Scene escena = new Scene(Structure,1800, 1000);
 		Stage.setTitle("CIRCUIT DESIGNER");

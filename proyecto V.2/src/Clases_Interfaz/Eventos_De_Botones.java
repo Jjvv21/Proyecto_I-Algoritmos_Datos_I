@@ -5,10 +5,16 @@ import java.io.File;
 import java.io.IOException;
 
 import Clases_Interfaz.Herencia_de_Compuertas_LOGICA.Gate_type;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Orientation;
 import javafx.scene.Cursor;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.ToolBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
@@ -16,9 +22,11 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -28,9 +36,25 @@ public class Eventos_De_Botones {
 	private static Rectangle rectangle;
 	private static double orgSceneX,orgSceneY;
     private static double orgTranslateX,orgTranslateY;
-    static Herencia_de_Compuertas_LOGICA compuerta = new Herencia_de_Compuertas_LOGICA(); 
+    
+    static Herencia_de_Compuertas_LOGICA compuerta = new Herencia_de_Compuertas_LOGICA();
+    
     private static Desktop desktop = Desktop.getDesktop();
-  
+    
+    public static ToolBar BarraDeHerramientas = new ToolBar();
+    
+    private static String Valores = new String();
+    
+    private static int indexPrev = 0;
+    
+    public static TableView Tabla = new TableView();
+    
+    private static int Combinaciones;
+    
+    
+    
+    
+    
     
 	public static final void OnDragDetected(MouseEvent e, ImageView ImageView, String Name){
         Dragboard db= ImageView.startDragAndDrop(TransferMode.ANY);
@@ -73,6 +97,7 @@ public class Eventos_De_Botones {
 	}
 	
 	
+	
 	private static void openFile(File file) {
         try {
             desktop.open(file);
@@ -81,8 +106,20 @@ public class Eventos_De_Botones {
             
         }
     }
+	public static void Window() {
+		Stage stage = new Stage();
+		BorderPane Panel = new BorderPane();
+		Panel.setLeft(BarraDeHerramientas);
+		Panel.setCenter(Tabla);
+		Tabla.setPlaceholder(new Label("No hay Compuertas en el Circuito"));
+		BarraDeHerramientas.setOrientation(Orientation.VERTICAL);
+		stage.setTitle("Set Inputs | Truth Table ");
+		stage.setScene(new Scene(Panel, 450, 450));				
+		stage.initModality(Modality.APPLICATION_MODAL);
+		
+		stage.showAndWait();
 	
-	
+	}
 	private static EventHandler<MouseEvent> RectangleOnMouseDraggedEventHandler = new EventHandler<MouseEvent>() {
 	    @Override
 	    public void handle(MouseEvent t) {
@@ -107,31 +144,48 @@ public class Eventos_De_Botones {
 
 	       Main.root.getChildren().add(rectangle);
 	    }
-	public static void SetInputs(int EntradaUno, int EntradaDos , String Name) {
+	
+	public static void SetEntradas(int Entrada_Uno, int Entrada_Dos , String Name) {
 		if(Name == "AND") {
-			compuerta.setLogica_en_Compuertas(compuerta, Gate_type.AND, EntradaUno, EntradaDos);
+			compuerta.setLogica_en_Compuertas(compuerta, Gate_type.AND, Entrada_Uno, Entrada_Dos);
 		}else if(Name == "OR") {
-			compuerta.setLogica_en_Compuertas(compuerta, Gate_type.OR, EntradaUno, EntradaDos);
+			compuerta.setLogica_en_Compuertas(compuerta, Gate_type.OR, Entrada_Uno, Entrada_Dos);
 		}else if(Name == "NOT") {
-			compuerta.setLogica_en_Compuertas(compuerta, Gate_type.NOT, EntradaUno, EntradaDos);
+			compuerta.setLogica_en_Compuertas(compuerta, Gate_type.NOT, Entrada_Uno, Entrada_Dos);
 		}else if(Name == "NAND") {
-			compuerta.setLogica_en_Compuertas(compuerta, Gate_type.NAND, EntradaUno, EntradaDos);
+			compuerta.setLogica_en_Compuertas(compuerta, Gate_type.NAND, Entrada_Uno, Entrada_Dos);
 		}else if(Name == "NOR") {
-			compuerta.setLogica_en_Compuertas(compuerta, Gate_type.NOR, EntradaUno, EntradaDos);
+			compuerta.setLogica_en_Compuertas(compuerta, Gate_type.NOR, Entrada_Uno, Entrada_Dos);
 		}else if(Name == "XOR") {
-			compuerta.setLogica_en_Compuertas(compuerta, Gate_type.XOR, EntradaUno, EntradaDos);
+			compuerta.setLogica_en_Compuertas(compuerta, Gate_type.XOR, Entrada_Uno, Entrada_Dos);
 		}else if(Name == "XNOR") {
-			compuerta.setLogica_en_Compuertas(compuerta, Gate_type.XNOR, EntradaUno, EntradaDos);
+			compuerta.setLogica_en_Compuertas(compuerta, Gate_type.XNOR, Entrada_Uno, Entrada_Dos);
 		}
 	}
-	// VAMOS POR AQUI
-	public static void AddInputs(ToolBar ToolBar, String Name) {
-		Botones Input1 = new Botones();
-		Botones setInput1 = new Botones();
-		Botones setInput2 = new Botones();
-		Input1.setMenuButton(Input1, MenuButtonType.Input, setInput1 , MenuItemType.Input1, setInput2, MenuItemType.Input2 , Name);
-		ToolBar.getItems().add(Input1.getMenuButton());
+	
+	public static void AddEntradas(ToolBar ToolBar, String Name) {
+		Botones EntradaUno = new Botones();
+		Botones SetEntradaUno = new Botones();
+		Botones SetEntradaDos = new Botones();
+		EntradaUno.SetMenuB(EntradaUno, MenuB_Enum.Entradas, SetEntradaUno , SetEntradaDos, MenuItemType.Entrada_Uno, MenuItemType.Entrada_Dos , Name);
+		ToolBar.getItems().add(EntradaUno.getMenuB());
 	}
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public static void AgregarColumnas(TableView TableView) {
+		TableView.getItems().clear();
+		TableColumn inputsColumn = new TableColumn("Inputs");
+		inputsColumn.setMinWidth(Tabla.getMaxWidth()/2);
+        TableColumn<ObservableList<String>, String> outputColumn = new TableColumn("Outputs");
+        outputColumn.setMinWidth(Tabla.getMaxWidth()/2);
+        for (int i = 0; i < Botones.TotalEntradas; i++) {
+            final int index = i;
+            String name = "int" + i;
+            TableColumn<ObservableList<String>, String> newColumn = new TableColumn<>(name);
+            inputsColumn.getColumns().add(newColumn);
+        }
+        Tabla.getColumns().addAll(inputsColumn, outputColumn);
+	}
+	
 
 	private static EventHandler<MouseEvent> RectangleOnMousePressedEventHandler = new EventHandler<MouseEvent>() {
                 @Override
@@ -142,5 +196,6 @@ public class Eventos_De_Botones {
                     orgTranslateY = ((Rectangle)(t.getSource())).getTranslateY();
                 }
             };
+            
 }
 
