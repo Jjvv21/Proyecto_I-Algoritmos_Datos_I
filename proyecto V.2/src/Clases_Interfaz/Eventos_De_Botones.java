@@ -1,8 +1,11 @@
 package Clases_Interfaz;
 
+
+
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import Clases_Interfaz.Herencia_de_Compuertas_LOGICA.Gate_type;
 import javafx.collections.FXCollections;
@@ -45,13 +48,10 @@ public class Eventos_De_Botones {
     
     public static ToolBar BarraDeHerramientas = new ToolBar();
     
-    private static String Valores = new String();
-    
-    private static int indexPrev = 0;
-    
+
     public static TableView Tabla = new TableView();
     
-    private static int Combinaciones;
+
     
     
     
@@ -143,6 +143,7 @@ public class Eventos_De_Botones {
 	       rectangle.setY(e.getSceneY());
 	       rectangle.setOnMousePressed(RectangleOnMousePressedEventHandler);
 	       rectangle.setOnMouseDragged(RectangleOnMouseDraggedEventHandler);
+	       SetEntradas(0,0, Nombre);
 	       if(Nombre == "NOT"){
 	    	   Botones.TotalEntradas++;
 	       }else {
@@ -178,29 +179,69 @@ public class Eventos_De_Botones {
 		EntradaUno.SetMenuB(EntradaUno, MenuB_Enum.Entradas, SetEntradaUno , SetEntradaDos, MenuItemType.Entrada_Uno, MenuItemType.Entrada_Dos , Name);
 		
 		ToolBar.getItems().add(EntradaUno.getMenuB());
-		ToolBar.setStyle("-fx-background-color: #5C5858");
+		ToolBar.setStyle("-fx-background-color:#F4F2F5");
 	}
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static void AgregarColumnas(TableView TableView) {
 		TableView.getItems().clear();
-		TableColumn InputsGroupColumn = new TableColumn("Entradas");
+		TableColumn InputsGroupColumn = new TableColumn("Inputs Column");
 		InputsGroupColumn.setMinWidth(TableView.getMaxWidth()/2);
-		TableColumn OutputsGroupColumn = new TableColumn("Salidas");
-		InputsGroupColumn.setMinWidth(TableView.getMaxWidth()/2);
-		for (int i = 0; i < Botones.TotalEntradas; i++) {
-            String name = "Entrada " + i;
-            TableColumn<ObservableList<String>, String> InputColumn = new TableColumn<>(name);
-            InputColumn.setCellValueFactory(new PropertyValueFactory<>("Entrada uno"));
-            ObservableList<Object> Datos = FXCollections.observableArrayList();
-            InputsGroupColumn.getColumns().add(InputColumn);
-        }
-		for(double Counter = Math.pow(2, Botones.TotalEntradas); Counter>0; Counter--) {
-        	TableView.getItems().add(new Herencia_de_Compuertas_LOGICA("1"));
-        	System.out.println("1 añadido");
-        }
-        
-
+		TableColumn OutputsGroupColumn = new TableColumn("Outputs Column");
+		OutputsGroupColumn.setMinWidth(TableView.getMaxWidth()/2);
+		int u = Botones.TotalEntradas;
+		int temp = u-1;
+		int temp1 = 0;
+		String [][] Values = new String[u][(int) Math.pow(2, u)];
+		for (int x = 0; x < u; x++) {
+			double temp2 = Math.pow(2, u)-1;
+			System.out.println("Entra For");
+			String name = "Input "+x;
+			 TableColumn InputColumn = new TableColumn(name);
+	            InputColumn.setCellValueFactory(new PropertyValueFactory<>("Input"+x));
+	            for(int y = 0; y < Math.pow(2,temp1); y++) {
+	            	System.out.println("Entra For2");
+	            	for(int w = 0; w < Math.pow(2,temp); w++) {
+	            		System.out.println("Entra For3");
+	            		Values[temp][(int) temp2] = "1";
+	            		if(temp2!=0) {
+	            			temp2--;
+	            		}
+	            	}
+	            	for(int z = 0; z < Math.pow(2,temp); z++) {
+	            		System.out.println("Entra For4");
+	            		Values[temp][(int) temp2] = "0";
+	            		if(temp2!=0) {
+	            			temp2--;
+	            		}
+	            	}
+	            }
+	            temp--;
+	            temp1++;
+	            InputsGroupColumn.getColumns().add(InputColumn);
+		}
+		for (int j=0; j < Values.length; j++) {
+            for (int h=0; h < Values[j].length; h++) {
+              System.out.println (Values[j][h]);
+            }
+		}
+		int x = 0;
+		for(int y=0;y<Math.pow(2, u);y++) {
+			if(u==0) {
+				System.out.println("No Existen Compuertas");
+			}else if(u==1) {
+				TableView.getItems().add(new Tabla_de_verdad(Values[x][y],"","","",""));
+			}else if(u==2) {
+				TableView.getItems().add(new Tabla_de_verdad(Values[x][y],Values[x+1][y],"","",""));
+			}else if(u==3) {
+				TableView.getItems().add(new Tabla_de_verdad(Values[x][y],Values[x+1][y],Values[x+2][y],"",""));
+			}else if(u==4) {
+				TableView.getItems().add(new Tabla_de_verdad(Values[x][y],Values[x+1][y],Values[x+2][y],Values[x+3][y],""));
+			}else if(u==5) {
+				TableView.getItems().add(new Tabla_de_verdad(Values[x][y],Values[x+1][y],Values[x+2][y],Values[x+3][y],Values[x+4][y]));
+			}
+		}
 		TableView.getColumns().addAll(InputsGroupColumn, OutputsGroupColumn);
+	
 	}
 	
 
@@ -215,4 +256,69 @@ public class Eventos_De_Botones {
             };
             
 }
+
+/*
+ * 	TableView.getItems().clear();
+		TableColumn InputsGroupColumn = new TableColumn("Inputs Column");
+		InputsGroupColumn.setMinWidth(TableView.getMaxWidth()/2);
+		TableColumn OutputsGroupColumn = new TableColumn("Outputs Column");
+		InputsGroupColumn.setMinWidth(TableView.getMaxWidth()/2);
+		int u = Botones.TotalEntradas;
+		int temp = u-1;
+		int temp1 = 0;
+		
+		String [][] Values = new String[u][(int) Math.pow(2, u)];
+		for (int x = 0; x < u; x++) {
+			double temp2 = Math.pow(2, u)-1;
+			System.out.println("Entra For");
+			String name = "Input "+x;
+            TableColumn InputColumn = new TableColumn(name);
+            InputColumn.setCellValueFactory(new PropertyValueFactory<>("Input"+x));
+            for(int y = 0; y < Math.pow(2,temp1); y++) {
+            	System.out.println("Entra For2");
+            	for(int w = 0; w < Math.pow(2,temp); w++) {
+            		System.out.println("Entra For3");
+            		Values[temp][(int) temp2] = "1";
+            		if(temp2!=0) {
+            			temp2--;
+            		}
+                } 
+            	for(int z = 0; z < Math.pow(2,temp); z++) {
+            		System.out.println("Entra For4");
+            		Values[temp][(int) temp2] = "0";
+            		if(temp2!=0) {
+            			temp2--;
+            		}
+            	}
+                
+            }
+            temp--;
+            temp1++;
+            InputsGroupColumn.getColumns().add(InputColumn);
+            
+        }
+		for (int j=0; j < Values.length; j++) {
+            for (int h=0; h < Values[j].length; h++) {
+              System.out.println (Values[j][h]);
+            }
+          }
+			int x = 0;
+			for(int y=0;y<Math.pow(2, u);y++) {
+				if(u==0) {
+					System.out.println("No Existen Compuertas");
+				}else if(u==1) {
+					TableView.getItems().add(new Tabla_de_verdad(Values[x][y],"","","",""));
+				}else if(u==2) {
+					TableView.getItems().add(new Tabla_de_verdad(Values[x][y],Values[x+1][y],"","",""));
+				}else if(u==3) {
+					TableView.getItems().add(new Tabla_de_verdad(Values[x][y],Values[x+1][y],Values[x+2][y],"",""));
+				}else if(u==4) {
+					TableView.getItems().add(new Tabla_de_verdad(Values[x][y],Values[x+1][y],Values[x+2][y],Values[x+3][y],""));
+				}else if(u==5) {
+					TableView.getItems().add(new Tabla_de_verdad(Values[x][y],Values[x+1][y],Values[x+2][y],Values[x+3][y],Values[x+4][y]));
+				}
+		}
+		TableView.getColumns().addAll(InputsGroupColumn, OutputsGroupColumn);
+		
+ */
 

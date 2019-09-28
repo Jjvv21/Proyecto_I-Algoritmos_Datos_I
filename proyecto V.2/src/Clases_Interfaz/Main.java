@@ -137,13 +137,13 @@ public class Main extends Application{
 		rightBox.setSpacing(90);
 		right_ToolBar.getItems().addAll(rightBox);
 		right_ToolBar.setStyle("-fx-background-color:  #252423 ");
-
+		Top_ToolBar.setStyle("-fx-background-color:  #434241 ");
 		
 		
 		
 		
 		
-		
+		Center.setStyle("-fx-background-color: #f0f0dd ");
 		Structure.setBottom(right_ToolBar);
 		Structure.setTop(Top_ToolBar);
 		Structure.setCenter(Center);
