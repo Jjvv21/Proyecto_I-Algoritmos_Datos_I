@@ -11,6 +11,8 @@ import java.net.URISyntaxException;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
@@ -266,9 +268,24 @@ public class Botones {
 			buttonC.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event) {
-					Eventos_De_Botones.Tabla.getColumns().clear();
-					Eventos_De_Botones.AgregarColumnas(Eventos_De_Botones.Tabla);
-					Eventos_De_Botones.Window();			        
+					if(Botones.TotalEntradas == 0) {
+					      Alert alert = new Alert(AlertType.INFORMATION);
+					        alert.setTitle("VACIO!");
+					        alert.setContentText("Inserte Una Compuerta");
+						alert.show();
+					}
+					else if(Botones.TotalEntradas >12 ) {
+						 Alert alert = new Alert(AlertType.ERROR);
+					        alert.setTitle("Insoportable");
+					        alert.setContentText("Maximo De Compuertas Alcanzado");
+						alert.show();
+					}else {
+						Eventos_De_Botones.Tabla.getColumns().clear();
+						Eventos_De_Botones.AgregarColumnas(Eventos_De_Botones.Tabla);
+						Eventos_De_Botones.Window();	
+						
+					}
+						        
 				}
 			});
 		}else {
