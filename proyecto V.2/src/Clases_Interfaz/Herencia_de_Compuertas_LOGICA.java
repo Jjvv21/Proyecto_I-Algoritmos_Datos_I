@@ -2,18 +2,37 @@ package Clases_Interfaz;
 
 import Clases_Interfaz.Herencia_de_Compuertas_LOGICA.Gates;
 
+
+/**
+ * 
+ * @author Julio
+ * Aqui se crea una clase concreta haciendo implementacion de una clase Abstracta llamada Compuertas_LOGICA
+ */
 public class Herencia_de_Compuertas_LOGICA {
 	
 	Herencia_de_Compuertas_LOGICA compuerta; 
 	private String EntradaUno = "";
+	
 	public Herencia_de_Compuertas_LOGICA() {
 	}
+	/**
+	 * 
+	 * @return
+	 */
 	public String getInput1() {
 		return EntradaUno;
 	}
+	/**
+	 * 
+	 * @param Entrada
+	 */
 	public void setInput1(String Entrada) {
 		EntradaUno = Entrada;
 	}
+	/**
+	 * 
+	 * @param EntradaUno
+	 */
 	public Herencia_de_Compuertas_LOGICA(String EntradaUno) {
 		this.EntradaUno = EntradaUno;
 	}
@@ -33,27 +52,44 @@ public class Herencia_de_Compuertas_LOGICA {
 	
 		}
 		@Override
+		/**
+		 * @return
+		 */
 		public int getEntradaUno() {
 			return EntradaUno; 
 		}
+		
 		@Override
+		/**
+		 * @return
+		 */
 		public int getEntradaDos() {
 			return EntradaDos;
 			
 		}
 		@Override
+		/**
+		 * @return
+		 */
 		public int getSalida() {
 			return Salida;
 		
 			
 		}
 		@Override
+		/**
+		 * @param EntradaDos
+		 */
 		public void setEntradaDos(int EntradaDos) {
 			this.EntradaDos = EntradaDos; 
 
 			
 		}
 		@Override
+		/**
+		 * @param EntradaUno
+		 * @param EntradaDos
+		 */
 		public void setSalida(int EntradaUno, int EntradaDos) {
 			int Val = 0;
 			if (EntradaUno == 1 && EntradaDos == 1) {
@@ -68,15 +104,23 @@ public class Herencia_de_Compuertas_LOGICA {
 		private int EntradaUno;
 		private int EntradaDos;
 		private int Salida;
-		
+		/**
+		 * @param EntradaUno
+		 */
 		public void setEntradaUno(int EntradaUno) {
 			this.EntradaUno = EntradaUno; 
 		}
 		@Override
+		/**
+		 * @return EntradaUno
+		 */
 		public int getEntradaUno() {
 			return EntradaUno; 
 		}
 		@Override
+		/**
+		 * @return EntradaDos
+		 */
 		public int getEntradaDos() {
 			return EntradaDos;
 			
@@ -104,6 +148,7 @@ public class Herencia_de_Compuertas_LOGICA {
 			
 		}
 	}
+
 	class CompuertaNOT implements Gates{
 		private int EntradaUno;
 		private int EntradaDos;
@@ -361,6 +406,10 @@ public class Herencia_de_Compuertas_LOGICA {
 	enum Gate_type{
 		AND,OR,NOT,NOR,XNOR,XOR,NAND 
 	}
+	/**
+	 * 
+	 * @return
+	 */
 	public Herencia_de_Compuertas_LOGICA getcompuerta() {
 		return compuerta;
 	}

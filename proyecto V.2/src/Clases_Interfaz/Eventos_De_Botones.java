@@ -58,68 +58,7 @@ public class Eventos_De_Botones {
     
     
     
-    
-    
-	public static final void OnDragDetected(MouseEvent e, ImageView ImageView, String Nombre){
-        Dragboard db= ImageView.startDragAndDrop(TransferMode.ANY);
-        ClipboardContent content = new ClipboardContent();
-        Main.Center.setOnDragDropped(new EventHandler<DragEvent>() {
-            @Override
-            public void handle(DragEvent event) {
-                Eventos_De_Botones.OnDragDropped(event, ImageView,Nombre);
-            }
-        });
-        content.putString(Nombre);
-        db.setContent(content);
-        e.consume();
-        
-	}
-	public static void  AbrirEvento(ActionEvent a , Stage Stage, Button Abrir) {
-		Abrir.setOnAction(new EventHandler<ActionEvent>() {
-		    @Override
-		    public void handle(final ActionEvent a) {
-		    	FileChooser fileChooser = new FileChooser();
-		        File file = fileChooser.showOpenDialog(Stage);
-		        if (file != null) {
-		            openFile(file);
-		        }
-		    }
-		});
-	}
-	
-	public static void GuardarEvento(ActionEvent a , Stage Stage, Button Guardar) {
-		Guardar.setOnAction(new EventHandler<ActionEvent>() {
-		    @Override
-		    public void handle(final ActionEvent a) {
-		    	if(Botones.TotalEntradas == 0) {
-		    		 Alert alert = new Alert(AlertType.INFORMATION);
-				        alert.setTitle("ARCHIVO VACIO");
-				        alert.setContentText("El Archivo está vacio");
-					alert.show();
-		    	}else {
-		    		FileChooser fileChooser = new FileChooser();
-			        File file = fileChooser.showOpenDialog(Stage);
-			        if (file != null) {
-			            openFile(file);
-			        }
-		    	}
-		    	
-		        
-		    }
-		});
-	}
-	
-	
-	
-	private static void openFile(File file) {
-        try {
-            desktop.open(file);
-        } catch (IOException ex) {
-        	System.out.println("Error 01");
-            
-        }
-    }
-	public static void Window() {
+    public static void Window() {
 		Stage stage = new Stage();
 		BorderPane Panel = new BorderPane();
 		Panel.setLeft(BarraDeHerramientas);
@@ -133,66 +72,10 @@ public class Eventos_De_Botones {
 		stage.showAndWait();
 	
 	}
-	private static EventHandler<MouseEvent> RectangleOnMouseDraggedEventHandler = new EventHandler<MouseEvent>() {
-	    @Override
-	    public void handle(MouseEvent t) {
-	        double offsetX = t.getSceneX() - orgSceneX;
-	        double offsetY = t.getSceneY() - orgSceneY;
-	        double newTranslateX = orgTranslateX + offsetX;
-	        double newTranslateY = orgTranslateY + offsetY;
-	
-	        ((Rectangle)(t.getSource())).setTranslateX(newTranslateX);
-	        ((Rectangle)(t.getSource())).setTranslateY(newTranslateY);
-	    }
-	};
-
-	public static void OnDragDropped(DragEvent e,ImageView ImageView,String Nombre){
-	       rectangle=new Rectangle(140,50);
-	       rectangle.setFill(new ImagePattern(ImageView.getImage()));
-	       rectangle.setCursor(Cursor.MOVE);
-	       rectangle.setX(e.getSceneX());
-	       rectangle.setY(e.getSceneY());
-	       rectangle.setOnMousePressed(RectangleOnMousePressedEventHandler);
-	       rectangle.setOnMouseDragged(RectangleOnMouseDraggedEventHandler);
-	       SetEntradas(0,0, Nombre);
-	       if(Nombre == "NOT"){
-	    	   Botones.TotalEntradas++;
-	       }else {
-	    	   Botones.TotalEntradas++;
-	    	   Botones.TotalEntradas++;
-	       }
-	       AddEntradas(BarraDeHerramientas, Nombre); 
-	       Main.root.getChildren().add(rectangle);
-	    }
-	
-	public static void SetEntradas(int Entrada_Uno, int Entrada_Dos , String Name) {
-		if(Name == "AND") {
-			compuerta.setLogica_en_Compuertas(compuerta, Gate_type.AND, Entrada_Uno, Entrada_Dos);
-		}else if(Name == "OR") {
-			compuerta.setLogica_en_Compuertas(compuerta, Gate_type.OR, Entrada_Uno, Entrada_Dos);
-		}else if(Name == "NOT") {
-			compuerta.setLogica_en_Compuertas(compuerta, Gate_type.NOT, Entrada_Uno, Entrada_Dos);
-		}else if(Name == "NAND") {
-			compuerta.setLogica_en_Compuertas(compuerta, Gate_type.NAND, Entrada_Uno, Entrada_Dos);
-		}else if(Name == "NOR") {
-			compuerta.setLogica_en_Compuertas(compuerta, Gate_type.NOR, Entrada_Uno, Entrada_Dos);
-		}else if(Name == "XOR") {
-			compuerta.setLogica_en_Compuertas(compuerta, Gate_type.XOR, Entrada_Uno, Entrada_Dos);
-		}else if(Name == "XNOR") {
-			compuerta.setLogica_en_Compuertas(compuerta, Gate_type.XNOR, Entrada_Uno, Entrada_Dos);
-		}
-	}
-	
-	public static void AddEntradas(ToolBar ToolBar, String Name) {
-		Botones EntradaUno = new Botones();
-		Botones SetEntradaUno = new Botones();
-		Botones SetEntradaDos = new Botones();
-		EntradaUno.SetMenuB(EntradaUno, MenuB_Enum.Entradas, SetEntradaUno , SetEntradaDos, MenuItemType.Entrada_Uno, MenuItemType.Entrada_Dos , Name);
-		
-		ToolBar.setStyle("-fx-background-color:#677a78");
-		ToolBar.getItems().add(EntradaUno.getMenuB());
-		
-	}
+    /**
+     * 
+     * @param TableView
+     */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static void AgregarColumnas(TableView TableView) {
 		TableView.getItems().clear();
@@ -234,14 +117,13 @@ public class Eventos_De_Botones {
 		}
 		for (int j=0; j < Values.length; j++) {
             for (int h=0; h < Values[j].length; h++) {
-              System.out.println (Values[j][h]);
             }
 		}
 		int x = 0;
 		for(int y=0;y<Math.pow(2, u);y++) {
 			
 			if(u==0) {
-				System.out.println("No Existen Compuertas");
+		
 			}else if(u==1) {
 				TableView.getItems().add(new Tabla_de_verdad(Values[x][y],"","","","","","","","","", null, null));
 			}else if(u==2) {
@@ -271,10 +153,169 @@ public class Eventos_De_Botones {
 		InputsGroupColumn.setStyle("-fx-background-color:#F4F2F5");
 		OutputsGroupColumn.setStyle("-fx-background-color:#F4F2F5");
 		TableView.getColumns().addAll(InputsGroupColumn, OutputsGroupColumn);
+	}
+	/**
+	 * 
+	 * @param e
+	 * @param ImageView
+	 * @param Nombre
+	 */
+    
+	public static final void OnDragDetected(MouseEvent e, ImageView ImageView, String Nombre){
+        Dragboard db= ImageView.startDragAndDrop(TransferMode.ANY);
+        ClipboardContent content = new ClipboardContent();
+        Main.Center.setOnDragDropped(new EventHandler<DragEvent>() {
+            @Override
+            public void handle(DragEvent event) {
+                Eventos_De_Botones.OnDragDropped(event, ImageView,Nombre);
+            }
+        });
+        content.putString(Nombre);
+        db.setContent(content);
+        e.consume();
+        
+	}
+	/**
+	 * 
+	 * @param a
+	 * @param Stage
+	 * @param Abrir
+	 */
+	public static void  AbrirEvento(ActionEvent a , Stage Stage, Button Abrir) {
+		Abrir.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override
+		    public void handle(final ActionEvent a) {
+		    	FileChooser fileChooser = new FileChooser();
+		        File file = fileChooser.showOpenDialog(Stage);
+		        if (file != null) {
+		            openFile(file);
+		        }
+		    }
+		});
+	}
+	/**
+	 * 
+	 * @param a
+	 * @param Stage
+	 * @param Guardar
+	 */
 	
+	public static void GuardarEvento(ActionEvent a , Stage Stage, Button Guardar) {
+		Guardar.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override
+		    public void handle(final ActionEvent a) {
+		    	if(Botones.TotalEntradas == 0) {
+		    		 Alert alert = new Alert(AlertType.INFORMATION);
+				        alert.setTitle("ARCHIVO VACIO");
+				        alert.setContentText("El Archivo está vacio");
+					alert.show();
+		    	}else {
+		    		FileChooser fileChooser = new FileChooser();
+			        File file = fileChooser.showOpenDialog(Stage);
+			        if (file != null) {
+			            openFile(file);
+			        }
+		    	}
+		    	
+		        
+		    }
+		});
 	}
 	
+	/**
+	 * 
+	 * @param file
+	 */
+	
+	private static void openFile(File file) {
+        try {
+            desktop.open(file);
+        } catch (IOException ex) {
+        	System.out.println("Error 01");
+            
+        }
+    
+	
+	}
+	private static EventHandler<MouseEvent> RectangleOnMouseDraggedEventHandler = new EventHandler<MouseEvent>() {
+	    @Override
+	    public void handle(MouseEvent t) {
+	        double offsetX = t.getSceneX() - orgSceneX;
+	        double offsetY = t.getSceneY() - orgSceneY;
+	        double newTranslateX = orgTranslateX + offsetX;
+	        double newTranslateY = orgTranslateY + offsetY;
+	
+	        ((Rectangle)(t.getSource())).setTranslateX(newTranslateX);
+	        ((Rectangle)(t.getSource())).setTranslateY(newTranslateY);
+	    }
+	};
+	/**
+	 * 
+	 * @param e
+	 * @param ImageView
+	 * @param Nombre
+	 */
 
+	public static void OnDragDropped(DragEvent e,ImageView ImageView,String Nombre){
+	       rectangle=new Rectangle(140,50);
+	       rectangle.setFill(new ImagePattern(ImageView.getImage()));
+	       rectangle.setCursor(Cursor.MOVE);
+	       rectangle.setX(e.getSceneX());
+	       rectangle.setY(e.getSceneY());
+	       rectangle.setOnMousePressed(RectangleOnMousePressedEventHandler);
+	       rectangle.setOnMouseDragged(RectangleOnMouseDraggedEventHandler);
+	       SetEntradas(0,0, Nombre);
+	       if(Nombre == "NOT"){
+	    	   Botones.TotalEntradas++;
+	       }else {
+	    	   Botones.TotalEntradas++;
+	    	   Botones.TotalEntradas++;
+	       }
+	       AddEntradas(BarraDeHerramientas, Nombre); 
+	       Main.root.getChildren().add(rectangle);
+	    }
+	/**
+	 * 
+	 * @param Entrada_Uno
+	 * @param Entrada_Dos
+	 * @param Name
+	 */
+	public static void SetEntradas(int Entrada_Uno, int Entrada_Dos , String Name) {
+		if(Name == "AND") {
+			compuerta.setLogica_en_Compuertas(compuerta, Gate_type.AND, Entrada_Uno, Entrada_Dos);
+		}else if(Name == "OR") {
+			compuerta.setLogica_en_Compuertas(compuerta, Gate_type.OR, Entrada_Uno, Entrada_Dos);
+		}else if(Name == "NOT") {
+			compuerta.setLogica_en_Compuertas(compuerta, Gate_type.NOT, Entrada_Uno, Entrada_Dos);
+		}else if(Name == "NAND") {
+			compuerta.setLogica_en_Compuertas(compuerta, Gate_type.NAND, Entrada_Uno, Entrada_Dos);
+		}else if(Name == "NOR") {
+			compuerta.setLogica_en_Compuertas(compuerta, Gate_type.NOR, Entrada_Uno, Entrada_Dos);
+		}else if(Name == "XOR") {
+			compuerta.setLogica_en_Compuertas(compuerta, Gate_type.XOR, Entrada_Uno, Entrada_Dos);
+		}else if(Name == "XNOR") {
+			compuerta.setLogica_en_Compuertas(compuerta, Gate_type.XNOR, Entrada_Uno, Entrada_Dos);
+		}
+	}
+
+	
+	/**
+	 * 
+	 * @param ToolBar
+	 * @param Name
+	 */
+	
+	public static void AddEntradas(ToolBar ToolBar, String Name) {
+		Botones EntradaUno = new Botones();
+		Botones SetEntradaUno = new Botones();
+		Botones SetEntradaDos = new Botones();
+		EntradaUno.SetMenuB(EntradaUno, MenuB_Enum.Entradas, SetEntradaUno , SetEntradaDos, MenuItemType.Entrada_Uno, MenuItemType.Entrada_Dos , Name);
+		
+		ToolBar.setStyle("-fx-background-color:#677a78");
+		ToolBar.getItems().add(EntradaUno.getMenuB());
+		
+	}
+	
 	private static EventHandler<MouseEvent> RectangleOnMousePressedEventHandler = new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent t) {
