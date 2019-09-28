@@ -36,7 +36,6 @@ public class Main extends Application{
 	 * Creacion De La Ventana Principal 
 	 * @param Stage
 	 */
-	
 	public void start(Stage Stage) throws Exception {
 	
 		/**
@@ -46,7 +45,7 @@ public class Main extends Application{
 		Botones borrar = new Botones();
 		Botones Guardar = new Botones();
 		Botones Abrir  = new Botones();
-		Botones Nuevo = new Botones();
+		 Botones Nuevo = new Botones();
 		Botones AND = new Botones();
 		Botones OR = new Botones();
 		Botones NAND = new Botones();
