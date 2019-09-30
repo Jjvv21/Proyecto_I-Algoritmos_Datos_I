@@ -372,6 +372,7 @@ public class Herencia_de_Compuertas_LOGICA {
 			compuertaNOR.setSalida(compuertaNOR.getEntradaUno(), compuertaNOR.getEntradaDos());
 			System.out.println("salida para el NOR = "+compuertaNOR.getSalida());
 			
+			
 		}else if(tipo_Compuertas == Gate_type.XNOR) {
 			CompuertaXNOR compuertaXNOR = new CompuertaXNOR();
 			compuertaXNOR.setEntradaUno(Entrada_Uno);

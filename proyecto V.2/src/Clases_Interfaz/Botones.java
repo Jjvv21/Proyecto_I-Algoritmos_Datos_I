@@ -46,17 +46,6 @@ public class Botones {
 		
 		if (type == Button_Enum.Abrir) {
 			new_Button.setText("Abrir");
-		
-		}else if (type == Button_Enum.Borrar) {
-			new_Button.setText("Borrar");
-			new_Button.setOnAction(new EventHandler<ActionEvent>(){
-	             @Override
-	             public void handle(ActionEvent event) {
-	                 Main.root.getChildren().clear();
-	                 Eventos_De_Botones.BarraDeHerramientas.getItems().clear();
-	                 TotalEntradas = 0; 
-	             }
-	         });
 			
 		}else if (type == Button_Enum.Guardar) {
 			new_Button.setText("Guardar");
@@ -68,6 +57,14 @@ public class Botones {
 
 		}else if (type == Button_Enum.Nuevo) {
 			new_Button.setText("Nuevo");
+			new_Button.setOnAction(new EventHandler<ActionEvent>(){
+	             @Override
+	             public void handle(ActionEvent event) {
+	                 Main.root.getChildren().clear();
+	                 Eventos_De_Botones.BarraDeHerramientas.getItems().clear();
+	                 TotalEntradas = 0; 
+	             }
+	         });
 			
 		}else if (type == Button_Enum.AND) {
 			new_Button.setText("AND");
@@ -132,9 +129,7 @@ public class Botones {
 					Eventos_De_Botones.GuardarEvento(event, Stage ,new_Button );
 				}
 			});
-		
-		}else if (type == Button_Enum.Borrar) {
-			new_Button.setText("Borrar");
+
 			
 			
 		}else if (type == Button_Enum.Guardar) {

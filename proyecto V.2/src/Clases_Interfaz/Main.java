@@ -42,10 +42,9 @@ public class Main extends Application{
 		 * BOTONES
 		 */
 		Botones simular = new Botones();
-		Botones borrar = new Botones();
 		Botones Guardar = new Botones();
-		Botones Abrir  = new Botones();
-		 Botones Nuevo = new Botones();
+		Botones Abrir  = new Botones();	
+		Botones Nuevo = new Botones();
 		Botones AND = new Botones();
 		Botones OR = new Botones();
 		Botones NAND = new Botones();
@@ -91,7 +90,7 @@ public class Main extends Application{
 		/**
 		 * BOTONES PARA EL TOP PANEL 
 		 */
-		borrar.setButton(borrar, Button_Enum.Borrar);
+		
 		simular.setButton(simular, Button_Enum.Simular,imgPLAY.getImageView());
 		Guardar.setButton(Guardar,Button_Enum.Guardar,Stage);
 		Abrir.setButton(Abrir,Button_Enum.Abrir,Stage);
@@ -132,7 +131,7 @@ public class Main extends Application{
 		 */
 		simular.getButton().setTranslateX(80);
 		
-		Top_ToolBar.getItems().addAll(Guardar.getButton(),Abrir.getButton(),Nuevo.getButton(),Back.getButton(),Tools.getButton(),Help.getButton(),borrar.getButton());
+		Top_ToolBar.getItems().addAll(Guardar.getButton(),Abrir.getButton(),Nuevo.getButton(),Back.getButton(),Tools.getButton(),Help.getButton());
 		rightBox.getChildren().addAll(AND.getButton(),OR.getButton(),XOR.getButton(),NAND.getButton(),NOR.getButton(),XNOR.getButton(),NOT.getButton(),simular.getButton());
 		rightBox.setSpacing(90);
 		right_ToolBar.getItems().addAll(rightBox);

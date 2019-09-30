@@ -27,6 +27,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.BorderPane;
@@ -66,7 +67,7 @@ public class Eventos_De_Botones {
 		Tabla.setPlaceholder(new Label("No hay Compuertas en el Circuito"));
 		BarraDeHerramientas.setOrientation(Orientation.VERTICAL);
 		stage.setTitle("Set Inputs | Truth Table ");
-		stage.setScene(new Scene(Panel, 450, 450));				
+		stage.setScene(new Scene(Panel,700, 480));				
 		stage.initModality(Modality.APPLICATION_MODAL);
 		
 		stage.showAndWait();
@@ -144,9 +145,9 @@ public class Eventos_De_Botones {
 				TableView.getItems().add(new Tabla_de_verdad(Values[x][y],Values[x+1][y],Values[x+2][y],Values[x+3][y],Values[x+4][y],Values[x+5][y],Values[x+6][y],Values[x+7][y],Values[x+8][y],"", null, null));
 			}else if(u==10) {
 				TableView.getItems().add(new Tabla_de_verdad(Values[x][y],Values[x+1][y],Values[x+2][y],Values[x+3][y],Values[x+4][y],Values[x+5][y],Values[x+6][y],Values[x+7][y],Values[x+8][y],Values[x+9][y], null, null));
-			}else if(u==10) {
+			}else if(u==11) {
 				TableView.getItems().add(new Tabla_de_verdad(Values[x][y],Values[x+1][y],Values[x+2][y],Values[x+3][y],Values[x+4][y],Values[x+5][y],Values[x+6][y],Values[x+7][y],Values[x+8][y],Values[x+9][y],Values[x+10][y], null));
-			}else if(u==10) {
+			}else if(u==12) {
 				TableView.getItems().add(new Tabla_de_verdad(Values[x][y],Values[x+1][y],Values[x+2][y],Values[x+3][y],Values[x+4][y],Values[x+5][y],Values[x+6][y],Values[x+7][y],Values[x+8][y],Values[x+9][y], Values[x+10][y], Values[x+11][y]));
 			}
 		}
@@ -271,7 +272,7 @@ public class Eventos_De_Botones {
 	    	   Botones.TotalEntradas++;
 	    	   Botones.TotalEntradas++;
 	       }
-	       AddEntradas(BarraDeHerramientas, Nombre); 
+	       AddEntradas(BarraDeHerramientas, Nombre,rectangle); 
 	       Main.root.getChildren().add(rectangle);
 	    }
 	/**
@@ -305,17 +306,33 @@ public class Eventos_De_Botones {
 	 * @param Name
 	 */
 	
-	public static void AddEntradas(ToolBar ToolBar, String Name) {
+	public static void AddEntradas(ToolBar ToolBar, String Name,Rectangle rectangle) {
 		Botones EntradaUno = new Botones();
 		Botones SetEntradaUno = new Botones();
 		Botones SetEntradaDos = new Botones();
 		EntradaUno.SetMenuB(EntradaUno, MenuB_Enum.Entradas, SetEntradaUno , SetEntradaDos, MenuItemType.Entrada_Uno, MenuItemType.Entrada_Dos , Name);
-		
 		ToolBar.setStyle("-fx-background-color:#677a78");
 		ToolBar.getItems().add(EntradaUno.getMenuB());
+		rectangle.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+
+            @Override public void handle(final MouseEvent MouseEvent){	
+         	   MouseButton button = MouseEvent.getButton();
+		   			if(button==MouseButton.SECONDARY) {
+		   				Main.root.getChildren().remove(rectangle);
+		   				if(Name == "NOT") {
+		   					Botones.TotalEntradas--;
+		   				}else {
+		   					Botones.TotalEntradas--;
+		   					Botones.TotalEntradas--;
+		   					
+		   				}
+		   				BarraDeHerramientas.getItems().remove(EntradaUno.getMenuB());
+		   			}
+            }
+        });
 		
 	}
-	
+
 	private static EventHandler<MouseEvent> RectangleOnMousePressedEventHandler = new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent t) {
